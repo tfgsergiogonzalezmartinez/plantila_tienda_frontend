@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MainService } from '../../Services/Main/Main.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'plantilla_tienda_frontend';
+  @ViewChild('mainDiv') mainDiv!: ElementRef;
+  title = 'frontend_tfg';
+
+  constructor(private mainService: MainService) {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.mainService.setMainDiv(this.mainDiv);
+  }
 }
