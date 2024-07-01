@@ -28,3 +28,12 @@
   background-position: center; /* Centra el fondo */
   background-repeat: no-repeat; /* Evita que se repita el fondo */
 }
+
+stickyMio {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: yellow;
+  padding: 50px;
+  font-size: 20px;
+}

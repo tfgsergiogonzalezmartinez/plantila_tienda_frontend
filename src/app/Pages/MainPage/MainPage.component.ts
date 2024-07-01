@@ -12,14 +12,11 @@ import { ProductoDto } from '../../../../dto/Producto/ProductoDto';
 })
 export class MainPageComponent implements OnInit {
   mostrarFiltros: boolean = false;
-  listaProductos : ProductoDto[] = [];
+
   constructor(private mainService : MainService, private userService : UserService,private productosService : ProductoService, private router : Router ) { }
 
   ngOnInit() {
-    // if (!this.userService.isLogin())
-    // {
-    //   this.router.navigate(['login']);
-    // }
+    this.getTodosProductos();
   }
 
   getService(){
@@ -30,65 +27,24 @@ export class MainPageComponent implements OnInit {
     this.mostrarFiltros = !this.mostrarFiltros;
   }
 
-  activarFiltrarAsc(){
-    if (!this.productosService.getCatergoriaActiva()){
-      this.filtrarPrecioAsc();
-    }else{
-      this.filtrarPrecioAscCategoria(this.productosService.getCatergoriaActiva());
-    }
-
-
-
-  }
-
-  activarFiltrarDesc(){
-    if (!this.productosService.getCatergoriaActiva()){
-      this.filtrarPrecioDesc();
-    }else{
-      this.filtrarPrecioDescCategoria(this.productosService.getCatergoriaActiva());
-    }
-  }
-
-  filtrarPrecioAsc(){
-    this.productosService.GetProductosFilterPrecioAsc().subscribe({
+  getTodosProductos(){
+    this.productosService.GetAll().subscribe({
       next: (data) => {
-        this.listaProductos = data;
+        this.productosService.setListaProductos(data);
       },
       error: (error) => {
         console.log(error);
       }
     });
   }
-  filtrarPrecioDesc(){
-    this.productosService.GetProductosFilterPrecioDesc().subscribe({
-      next: (data) => {
-        this.listaProductos = data;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+
+
+
+  getProductosService(){
+    return this.productosService;
   }
-  filtrarPrecioAscCategoria(categoriaId : string){
-    this.productosService.GetProductosByCategoriaFilterPrecioAsc(categoriaId).subscribe({
-      next: (data) => {
-        this.listaProductos = data;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
-  filtrarPrecioDescCategoria(categoriaId : string){
-    this.productosService.GetProductosByCategoriaFilterPrecioDesc(categoriaId).subscribe({
-      next: (data) => {
-        this.listaProductos = data;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
+
+
 }
 
 

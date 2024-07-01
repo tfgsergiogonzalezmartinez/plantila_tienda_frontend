@@ -1,6 +1,6 @@
 <div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 px-6 bg-background-dark overflow-x-hidden">
-  <div class="flex flex-row p-2 w-full h-full">
-    <div class="flex flex-col w-full h-full overflow-y-auto">
+  <div class="flex flex-row p-2 w-full h-full m-auto pr-60 ">
+    <div class="flex flex-col w-full h-full">
       <div class="flex flex-row justify-between w-full px-2">
         <h2>Tienda</h2>
         <div class="relative flex flex-row gap-5 cursor-pointer rounded hover:bg-background px-2 z-10">
@@ -16,24 +16,27 @@
           </div>
           @if (mostrarFiltros) {
             <div class="absolute top-11 right-0 w-[135px] rounded shadow-sm bg-background flex flex-col gap-1 justify-start items-start">
-              <div (click)="activarFiltrarAsc()" class="flex flex-row justify-center items-center">
+              <div (click)="getProductosService().activarFiltrarDesc()" class="flex flex-row justify-center items-center">
                 <span class="text-sm p-1 hover:bg-background-light transition-colors">Precio ascendente</span>
               </div>
-              <div (click)="activarFiltrarDesc()" class="flex flex-row justify-center items-center">
+              <div (click)="getProductosService().activarFiltrarAsc()" class="flex flex-row justify-center items-center">
                 <span class="text-sm p-1 hover:bg-background-light transition-colors">Precio descendente</span>
               </div>
             </div>
           }
         </div>
       </div>
-      <div class="flex flex-row gap-5">
-        <app-Item></app-Item>
+      <div class="flex flex-row flex-wrap gap-14 justify-start">
+        @for (item of getProductosService().getListaProductos(); track $index) {
+          <app-Item [Producto]="item"></app-Item>
+        }
       </div>
     </div>
 
-    <div class="bg-red-500 flex flex-col h-full w-[400px] w-min-[400px] w-max-[400x]">
-da
-    </div>
 
   </div>
+</div>
+
+<div class="fixed right-6 top-20 flex flex-col w-[250px] w-min-[400px] w-max-[400px] top-0 h-screen">
+    <app-CarritoCompras></app-CarritoCompras>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../../../../Services/Categoria/Categoria.service';
 import { CategoriaDto } from '../../../../dto/Categoria/CategoriaDto';
 import { Router } from '@angular/router';
+import { ProductoService } from '../../../../Services/Producto/Producto.service';
 
 @Component({
   selector: 'app-SubHeader',
@@ -9,25 +10,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./SubHeader.component.css']
 })
 export class SubHeaderComponent implements OnInit {
+  showCategorias : boolean = false;
   listaCategorias : CategoriaDto[] = [];
-  listaTodasCategorias : CategoriaDto[] = [];
-  constructor(private categoriaService : CategoriaService, private router: Router) { }
+  categoriaSeleccionada! : CategoriaDto;
+
+
+  constructor(private categoriaService : CategoriaService, private productosService: ProductoService, private router: Router) { }
 
   goTo(ruta:string){
     this.router.navigate([ruta]);
   }
 
   CargarCategorias(){
+    let lista : CategoriaDto[] = [];
     this.categoriaService.GetAll().subscribe({
       next: (data) => {
-        this.listaTodasCategorias = data;
-        for(const cat of this.listaTodasCategorias){
+        lista = data;
+        for(const cat of lista){
           if (!cat.CategoriaPadre){
             this.listaCategorias.push(cat);
           }
         }
       for (const padre of this.listaCategorias){
-          for (const hijo of this.listaTodasCategorias){
+          for (const hijo of lista){
             if (hijo.CategoriaPadre == padre.Nombre){
               if (!padre.CategoriaPadre) {
                 padre.SubCategorias = [];
@@ -48,8 +53,20 @@ export class SubHeaderComponent implements OnInit {
     })
   }
 
+  seleccionarCategoria(categoria: CategoriaDto){
+    this.categoriaSeleccionada = categoria;
+    if(!categoria.SubCategorias){
+      this.productosService.setCategoriaActiva(categoria.Nombre);
+    }
+
+  }
+
+
   ngOnInit() {
     this.CargarCategorias();
+  }
+  toggleCategorias(){
+    this.showCategorias = !this.showCategorias;
   }
 
 }

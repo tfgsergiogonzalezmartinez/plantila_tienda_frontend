@@ -15,6 +15,7 @@ import { UserProfileDropdownComponent } from './Components/UserProfileDropdown/U
 import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.component';
 import { ItemComponent } from './Components/Item/Item.component';
 import { SubHeaderComponent } from './Components/SubHeader/SubHeader.component';
+import { CarritoComprasComponent } from './Components/CarritoCompras/CarritoCompras.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SubHeaderComponent } from './Components/SubHeader/SubHeader.component';
     UserProfileDropdownComponent,
     ToggleModeComponent,
     ItemComponent,
-    SubHeaderComponent
+    SubHeaderComponent,
+    CarritoComprasComponent
   ],
   imports: [
     BrowserModule,
