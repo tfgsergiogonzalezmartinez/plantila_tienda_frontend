@@ -16,6 +16,9 @@ import { ToggleModeComponent } from './Components/ToggleMode/ToggleMode.componen
 import { ItemComponent } from './Components/Item/Item.component';
 import { SubHeaderComponent } from './Components/SubHeader/SubHeader.component';
 import { CarritoComprasComponent } from './Components/CarritoCompras/CarritoCompras.component';
+import { UserPageComponent } from './Pages/UserPage/UserPage.component';
+import { ModalComponent } from './Components/modal/modal.component';
+import { InputFormComponent } from './Components/inputForm/inputForm.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { CarritoComprasComponent } from './Components/CarritoCompras/CarritoComp
     ToggleModeComponent,
     ItemComponent,
     SubHeaderComponent,
-    CarritoComprasComponent
+    CarritoComprasComponent,
+    UserPageComponent,
+    ModalComponent,
+    InputFormComponent
   ],
   imports: [
     BrowserModule,

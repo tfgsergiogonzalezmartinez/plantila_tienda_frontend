@@ -13,10 +13,11 @@ import { ProductoDto } from '../../../../dto/Producto/ProductoDto';
 export class MainPageComponent implements OnInit {
   mostrarFiltros: boolean = false;
 
+
   constructor(private mainService : MainService, private userService : UserService,private productosService : ProductoService, private router : Router ) { }
 
   ngOnInit() {
-    this.getTodosProductos();
+    this.productosService.getTodosProductos();
   }
 
   getService(){
@@ -27,22 +28,16 @@ export class MainPageComponent implements OnInit {
     this.mostrarFiltros = !this.mostrarFiltros;
   }
 
-  getTodosProductos(){
-    this.productosService.GetAll().subscribe({
-      next: (data) => {
-        this.productosService.setListaProductos(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
-
-
-
   getProductosService(){
     return this.productosService;
   }
+
+  addProducto(){
+    if (!this.getProductosService().getTallaSeleccionada() || !this.getProductosService().getColorSeleccionado()) return;
+    this.productosService.addProductoCesta(this.productosService.getProductoSeleccionado()!);
+    this.productosService.setProductoSeleccionado(null);
+  }
+
 
 
 }

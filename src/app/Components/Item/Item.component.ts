@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Enviroment } from '../../../../Enviroment';
 import { ProductoDto } from '../../../../dto/Producto/ProductoDto';
+import { ProductoService } from '../../../../Services/Producto/Producto.service';
 
 @Component({
   selector: 'app-Item',
@@ -14,9 +15,21 @@ export class ItemComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private produtoServices : ProductoService) { }
 
   ngOnInit() {
+  }
+
+  seleccionarProducto(){
+    this.produtoServices.setProductoSeleccionado(this.Producto);
+    console.log(this.Producto);
+  }
+
+  getProductoService(event: any = null){
+    if (event){
+      event.stopPropagation();
+    }
+    return this.produtoServices;
   }
 
 }

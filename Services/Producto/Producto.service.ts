@@ -9,6 +9,11 @@ import { ProductoDto } from '../../dto/Producto/ProductoDto';
 export class ProductoService extends BaseService {
   private CategoriaActiva! : string;
   private listaProductos : ProductoDto[] = [];
+  private listaProductosCesta : ProductoDto[] = [];
+  private productoSeleccionado! : ProductoDto | null;
+
+  private tallaSeleccionada! : string;
+  private colorSeleccionado! : string;
   constructor(httpClient : HttpClient) {
     super(httpClient);
     this.controller = 'Producto';
@@ -40,6 +45,7 @@ export class ProductoService extends BaseService {
     this.CategoriaActiva = categoria;
     this.GetProductosByCategoria(categoria).subscribe({
       next: (data) => {
+        if(data.length == 0) return;
         this.setListaProductos(data);
       },
       error: (error) => {
@@ -54,6 +60,47 @@ export class ProductoService extends BaseService {
 
   setListaProductos(lista : ProductoDto[]){
     this.listaProductos = lista;
+  }
+
+
+  getTodosProductos(){
+    this.GetAll().subscribe({
+      next: (data) => {
+        this.setListaProductos(data);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  getListaProductosCesta(){
+    return this.listaProductosCesta;
+  }
+  setListaProductosCesta(lista : ProductoDto[]){
+    this.listaProductosCesta = lista;
+  }
+  addProductoCesta(producto : ProductoDto){
+    this.listaProductosCesta.push(producto);
+  }
+  removeProductoCesta(indexPrducto : number){
+    this.listaProductosCesta = this.listaProductosCesta.filter((value, index) => index != indexPrducto);
+  }
+
+  getTotal(){
+    let total = 0;
+    for (const prod of this.listaProductosCesta){
+      total += prod.Precio;
+    }
+    return total;
+  }
+
+  getProductoSeleccionado(){
+    return this.productoSeleccionado;
+  }
+
+  setProductoSeleccionado(producto : ProductoDto | null){
+    this.productoSeleccionado = producto;
   }
 
   filtrarPrecioAsc(){
@@ -117,6 +164,21 @@ export class ProductoService extends BaseService {
     }else{
       this.filtrarPrecioDescCategoria(this.getCatergoriaActiva());
     }
+  }
+
+  //Datos del Producto
+
+  getColorSeleccionado(){
+    return this.colorSeleccionado;
+  }
+  getTallaSeleccionada(){
+    return this.tallaSeleccionada;
+  }
+  setColorSeleccionado(color : string){
+    this.colorSeleccionado = color;
+  }
+  setTallaSeleccionada(talla : string){
+    this.tallaSeleccionada = talla;
   }
 
 

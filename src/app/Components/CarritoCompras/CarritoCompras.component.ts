@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Enviroment } from '../../../../Enviroment';
+import { ProductoService } from '../../../../Services/Producto/Producto.service';
 
 @Component({
   selector: 'app-CarritoCompras',
@@ -12,9 +13,13 @@ export class CarritoComprasComponent implements OnInit {
   precioProducto : number = 200;
   Moneda : string = Enviroment.PAGE_MONEDA;
 
-  constructor() { }
+  constructor(private productosService : ProductoService) { }
 
   ngOnInit() {
+  }
+
+  getProductosService(){
+    return this.productosService;
   }
 
 }

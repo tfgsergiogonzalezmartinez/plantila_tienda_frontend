@@ -53,9 +53,19 @@ export class SubHeaderComponent implements OnInit {
     })
   }
 
-  seleccionarCategoria(categoria: CategoriaDto){
+  seleccionarCategoria(categoria: CategoriaDto | null = null){
+    if (!categoria){
+      this.productosService.getTodosProductos();
+      this.showCategorias = false;
+      return;
+    }
+
     this.categoriaSeleccionada = categoria;
     if(!categoria.SubCategorias){
+      this.productosService.setCategoriaActiva(categoria.Nombre);
+      this.showCategorias = false;
+
+    }else{
       this.productosService.setCategoriaActiva(categoria.Nombre);
     }
 
@@ -67,6 +77,10 @@ export class SubHeaderComponent implements OnInit {
   }
   toggleCategorias(){
     this.showCategorias = !this.showCategorias;
+  }
+
+  getProductoService(){
+    return this.productosService;
   }
 
 }

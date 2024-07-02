@@ -1,5 +1,5 @@
 <div [ngClass]="{'bg-custom-dark-default' : getService().isModoOscuro(),'bg-custom-default' : getService().isModoClaro() }" class="flex flex-col h-screen w-screen pt-20 px-6 bg-background-dark overflow-x-hidden">
-  <div class="flex flex-row p-2 w-full h-full m-auto pr-60 ">
+  <div class="flex flex-row p-2 w-full h-full m-auto paddingRight ">
     <div class="flex flex-col w-full h-full">
       <div class="flex flex-row justify-between w-full px-2">
         <h2>Tienda</h2>
@@ -37,6 +37,57 @@
   </div>
 </div>
 
-<div class="fixed right-6 top-20 flex flex-col w-[250px] w-min-[400px] w-max-[400px] top-0 h-screen">
+<div class="fixed right-6 top-20 flex flex-col w-[280px] w-min-[280px] w-max-[280px] top-0 h-screen">
     <app-CarritoCompras></app-CarritoCompras>
 </div>
+
+@if (getProductosService().getProductoSeleccionado()) {
+<app-modal (exitEventEmitter)="getProductosService().setProductoSeleccionado(null)">
+  <h1 titulo>{{getProductosService().getProductoSeleccionado()!.Nombre}}</h1>
+  <div body class="flex flex-row gap-2">
+    <div class="flex flex-col p-4 gap-3 overflow-y-auto">
+      <div class="flex flex-row gap-5">
+        <div class="flex flex-col gap-1 h-[400px] h-min-[400px] h-max-[400px]  overflow-y-auto">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          <img class="object-cover w-[75px] w-min-[75px] w-max-[75px] h-[75px] h-min-[75px] h-max-[75px] rounded" src="https://via.placeholder.com/100x100" alt="">
+        </div>
+        <div class="flex">
+          <img class="object-cover w-[400] w-min-[400px] w-max-[400px] h-[400px] h-min-[400px] h-max-[400px] rounded" src="https://via.placeholder.com/500x500" alt="">
+        </div>
+        <div class="flex flex-col">
+            <h4 class="py-2 font-semibold">Tallas</h4>
+            <div class="flex flex-row flex-wrap gap-2">
+              @for (talla of getProductosService().getProductoSeleccionado()?.Tallas; track $index) {
+                <span (click)="getProductosService().setTallaSeleccionada(talla)" [ngClass]="{'seleccionada' : talla == getProductosService().getTallaSeleccionada() }" class="px-3 py-1 rounded border-2 hover:bg-background-dark cursor-pointer">{{talla}}</span>
+              }
+            </div>
+            <h4 class="py-2 font-semibold">Colores</h4>
+            <div class="flex flex-row flex-wrap gap-2">
+              @for (color of getProductosService().getProductoSeleccionado()?.Colores; track $index) {
+                <span (click)="getProductosService().setColorSeleccionado(color)" [ngClass]="{'seleccionada' : color == getProductosService().getColorSeleccionado()}" class="px-3 py-1 rounded border-2 hover:bg-background-dark cursor-pointer">{{color}}</span>
+              }
+            </div>
+            <div class="flex flex-row py-6">
+              <button (click)="addProducto()" class="w-full h-10 bg-primary hover:bg-primary-dark transition-colors">Añadir al carrito</button>
+            </div>
+        </div>
+
+      </div>
+      <div class="flex flex-col gap-2">
+        <h4 class="font-semibold">Descripcion</h4>
+        <p>{{getProductosService().getProductoSeleccionado()!.Descripcion}}</p>
+
+      </div>
+
+    </div>
+  </div>
+</app-modal>
+
+}
+

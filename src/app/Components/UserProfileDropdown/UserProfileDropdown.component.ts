@@ -63,7 +63,7 @@ export class UserProfileDropdownComponent implements OnInit {
       return;
     }
     if (route == "Configuracion") {
-      this.router.navigate(['/main/settings']);
+      this.router.navigate(['/home/settings']);
       return;
     }
     if (route == "Login") {

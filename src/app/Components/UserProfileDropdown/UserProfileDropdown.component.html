@@ -1,9 +1,5 @@
 @if (getService().isLogin()) {
-
-
-
-
-  <div #userDropDown class="flex bg-background flex-row flex-nowrap gap-2 mx-2 cursor-pointer relative" (click)="toggle_userDropDown()">
+  <div #userDropDown class="flex bg-background flex-row flex-nowrap gap-2 mx-2 cursor-pointer relative hover:bg-background-dark rounded transition-colors" (click)="toggle_userDropDown()">
     <div class="flex justify-center items-center">
       <span class=" text-3xl material-symbols-outlined text-text dark:text-text ">
         person

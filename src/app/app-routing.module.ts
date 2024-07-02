@@ -5,16 +5,20 @@ import { MainLayoutComponent } from './Layout/MainLayout/MainLayout.component';
 import { LoginPageComponent } from './Pages/LoginPage/LoginPage.component';
 import { loginGuard } from '../../Guards/Login.guard';
 import { MainPageComponent } from './Pages/MainPage/MainPage.component';
+import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginLayoutComponent, children:[
-    {path: '', component: LoginPageComponent}]
+    { path: '', component: LoginPageComponent}]
   },
   {path: 'home', component: MainLayoutComponent, children:[
-    {path: '', component: MainPageComponent }]
+    { path: 'settings', canActivate: [loginGuard], component: UserPageComponent },
+    { path: '', component: MainPageComponent }]
   },
-  {path: '', redirectTo: 'home', pathMatch: 'full'}
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '**', redirectTo: 'home'}
+
 ];
 
 @NgModule({
