@@ -36,6 +36,8 @@ export class MainPageComponent implements OnInit {
     if (!this.getProductosService().getTallaSeleccionada() || !this.getProductosService().getColorSeleccionado()) return;
     this.productosService.addProductoCesta(this.productosService.getProductoSeleccionado()!);
     this.productosService.setProductoSeleccionado(null);
+    this.productosService.setTallaSeleccionada("");
+    this.productosService.setColorSeleccionado("");
   }
 
 

@@ -19,6 +19,7 @@ import { CarritoComprasComponent } from './Components/CarritoCompras/CarritoComp
 import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { ModalComponent } from './Components/modal/modal.component';
 import { InputFormComponent } from './Components/inputForm/inputForm.component';
+import { TruncarPipe } from './truncar.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { InputFormComponent } from './Components/inputForm/inputForm.component';
     CarritoComprasComponent,
     UserPageComponent,
     ModalComponent,
-    InputFormComponent
+    InputFormComponent,
+    TruncarPipe
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Enviroment } from '../../../../Enviroment';
 import { ProductoService } from '../../../../Services/Producto/Producto.service';
 
@@ -7,7 +7,8 @@ import { ProductoService } from '../../../../Services/Producto/Producto.service'
   templateUrl: './CarritoCompras.component.html',
   styleUrls: ['./CarritoCompras.component.css']
 })
-export class CarritoComprasComponent implements OnInit {
+export class CarritoComprasComponent implements OnInit, AfterViewInit {
+  @ViewChild('cesta') cestaRef!: ElementRef
   imgProducto = "https://via.placeholder.com/50x50";
   nombreProducto : string = "Producto";
   precioProducto : number = 200;
@@ -16,6 +17,9 @@ export class CarritoComprasComponent implements OnInit {
   constructor(private productosService : ProductoService) { }
 
   ngOnInit() {
+  }
+  ngAfterViewInit(): void {
+    this.productosService.setCestaRef(this.cestaRef);
   }
 
   getProductosService(){

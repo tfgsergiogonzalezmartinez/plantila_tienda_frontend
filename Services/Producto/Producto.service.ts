@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { BaseService } from '../Base.service';
 import { HttpClient } from '@angular/common/http';
 import { ProductoDto } from '../../dto/Producto/ProductoDto';
@@ -14,6 +14,9 @@ export class ProductoService extends BaseService {
 
   private tallaSeleccionada! : string;
   private colorSeleccionado! : string;
+
+  private CestaRef! : ElementRef;
+
   constructor(httpClient : HttpClient) {
     super(httpClient);
     this.controller = 'Producto';
@@ -82,6 +85,8 @@ export class ProductoService extends BaseService {
   }
   addProductoCesta(producto : ProductoDto){
     this.listaProductosCesta.push(producto);
+    this.CestaRef.nativeElement.scrollIntoView({behavior: "smooth"});
+    this.CestaRef.nativeElement.scrollTop = this.CestaRef.nativeElement.scrollHeight;
   }
   removeProductoCesta(indexPrducto : number){
     this.listaProductosCesta = this.listaProductosCesta.filter((value, index) => index != indexPrducto);
@@ -164,6 +169,13 @@ export class ProductoService extends BaseService {
     }else{
       this.filtrarPrecioDescCategoria(this.getCatergoriaActiva());
     }
+  }
+
+  getCestaRef(){
+    return this.CestaRef;
+  }
+  setCestaRef(cesta : ElementRef){
+    this.CestaRef = cesta;
   }
 
   //Datos del Producto
