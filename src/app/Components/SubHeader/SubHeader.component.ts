@@ -76,6 +76,7 @@ export class SubHeaderComponent implements OnInit {
     this.CargarCategorias();
   }
   toggleCategorias(){
+    this.router.navigate(['/']);
     this.showCategorias = !this.showCategorias;
   }
 

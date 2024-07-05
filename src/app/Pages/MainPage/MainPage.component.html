@@ -3,6 +3,7 @@
     <div class="flex flex-col w-full h-full">
       <div class="flex flex-row justify-between w-full px-2">
         <h2>Tienda</h2>
+        <div class="flex flex-row gap-2">
         <div class="relative flex flex-row gap-5 cursor-pointer rounded hover:bg-background px-2 z-10">
           <div (click)="toggleFiltros()" class="flex flex-row justify-between">
             <div class="flex flex-row justify-center items-center">
@@ -25,6 +26,12 @@
             </div>
           }
         </div>
+        @if (getUserService().isAdmin()) {
+          <div class="flex flex-row justify-center items-center">
+            <button (click)="getProductosService().setIsNuevoProducto(true)">Nuevo Producto</button>
+          </div>
+        }
+      </div>
       </div>
       <div class="flex flex-row flex-wrap gap-14 justify-start">
         @for (item of getProductosService().getListaProductos(); track $index) {
@@ -48,17 +55,16 @@
     <div class="flex flex-col p-4 gap-3 overflow-y-auto">
       <div class="flex flex-row gap-5">
         <div class="flex flex-col  gap-1 h-[400px] h-min-[400px] h-max-[400px] overflow-y-auto">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+         @for (item of getProductosService().getProductoSeleccionado()?.Fotos; track $index) {
+            <img (click)="getProductosService().setFotoPrincipalProducto(item)" class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" [src]="item" alt="">
+         }
         </div>
         <div class="flex w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px]">
-          <img class="w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px] rounded" src="https://via.placeholder.com/500x500" alt="">
+          @if (!getProductosService().getProductoSeleccionado()?.FotoPrincipal || getProductosService().getProductoSeleccionado()?.FotoPrincipal == ""){
+            <img class="w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px] rounded" [src]="'https://placehold.co/500x500'" alt="">
+          }@else {
+            <img class="w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px] rounded" [src]="getProductosService().getProductoSeleccionado()?.FotoPrincipal" alt="">
+          }
         </div>
         <div class="flex flex-col">
             <h4 class="py-2 font-semibold">Tallas</h4>
@@ -89,5 +95,102 @@
   </div>
 </app-modal>
 
+
+
 }
+
+
+@if (getProductosService().getIsNuevoProducto()) {
+  <app-modal (exitEventEmitter)="getProductosService().setIsNuevoProducto(false)">
+    <h1 titulo>Nuevo Producto</h1>
+    <div body class="flex flex-row gap-2">
+      <div class="flex flex-col p-4 gap-3 overflow-y-auto">
+        <div class="flex flex-row gap-5">
+          <div class="flex flex-col  gap-1 h-[400px] h-min-[400px] h-max-[400px] overflow-y-auto">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" [src]="getProductosService().getProductoSeleccionado()?.FotoPrincipal" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+          </div>
+          <div class="flex w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px]">
+            <img class="w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px] rounded" src="https://via.placeholder.com/500x500" alt="">
+          </div>
+          <div class="flex flex-col gap-2">
+              <div class="grid grid-cols-2 gap-2 justify-center items-center">
+                <h4 class="py-2 font-semibold">Nombre</h4>
+                <input [(ngModel)]="nuevoNombre" type="text" placeholder="Nombre" class="w-full h-10 rounded border-2 border-background-dark px-2">
+              </div>
+              <div class="grid grid-cols-2 gap-2 justify-center items-center">
+                <h4 class="py-2 font-semibold">Categoria</h4>
+                <select [(ngModel)]="nuevoCategoria" class="w-full h-10 rounded border-2 border-background-dark px-2">
+                  @for (cat of listaCategorias; track $index) {
+                    <option value="{{cat.Nombre}}">{{cat.Nombre}}</option>
+                  }
+                </select>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex w-full gap-5 justify-between items-center">
+                  <h4 class="py-2 font-semibold">Tallas</h4>
+                  <div class="flex flex-row gap-2">
+                    <input [(ngModel)]="nuevaTalla" type="text" placeholder="Inserta talla" class="w-full h-10 rounded border-2 border-background-dark px-2">
+                    <button (click)="addTalla()">Añadir</button>
+                  </div>
+                </div>
+                @if (listaNuevasTallas.length>0) {
+                  <div class="grid grid-cols-2 justify-center">
+                    <span class="font-semibold">Tallas añadidas</span>
+                    <div class="flex flex-row gap-2 flex-wrap">
+                      @for (talla of listaNuevasTallas; track $index) {
+                        <span class="px-3 py-1 rounded border-2">{{talla}}</span>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex w-full gap-5 justify-between items-center">
+                  <h4 class="py-2 font-semibold">Colores</h4>
+                  <div class="flex flex-row gap-2">
+                    <input [(ngModel)]="nuevoColor" type="text" placeholder="Inserta Color" class="w-full h-10 rounded border-2 border-background-dark px-2">
+                    <button (click)="addColor()">Añadir</button>
+                  </div>
+                </div>
+                @if (listaNuevosColores.length>0) {
+                  <div class="grid grid-cols-2 justify-center">
+                    <span class="font-semibold">Colores añadidos</span>
+                    <div class="flex flex-row gap-2 flex-wrap">
+                      @for (color of listaNuevosColores; track $index) {
+                        <span class="px-3 py-1 rounded border-2">{{color}}</span>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+              <div class="grid grid-cols-2 justify-center items-center">
+                <h4 class="py-2 font-semibold">Precio</h4>
+                <input [(ngModel)]="nuevoPrecio" type="text" placeholder="Inserte precio" class="w-full h-10 rounded border-2 border-background-dark px-2">
+              </div>
+              <div class="flex flex-row py-6">
+                <button (click)="crearProducto()" class="w-full h-10 bg-primary hover:bg-primary-dark transition-colors">Añadir al carrito</button>
+              </div>
+          </div>
+
+        </div>
+        <div class="flex flex-col gap-2">
+          <h4 class="font-semibold">Descripcion</h4>
+          <input [(ngModel)]="nuevoDescripcion" type="text" placeholder="Descripcion" class="w-full h-10 rounded border-2 border-background-dark px-2">
+
+        </div>
+
+      </div>
+    </div>
+  </app-modal>
+
+
+
+  }
 

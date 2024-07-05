@@ -20,6 +20,8 @@ import { UserPageComponent } from './Pages/UserPage/UserPage.component';
 import { ModalComponent } from './Components/modal/modal.component';
 import { InputFormComponent } from './Components/inputForm/inputForm.component';
 import { TruncarPipe } from './truncar.pipe';
+import { HeaederElementoComponent } from './Components/HeaederElemento/HeaederElemento.component';
+import { VentasPageComponent } from './Pages/VentasPage/VentasPage.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { TruncarPipe } from './truncar.pipe';
     UserPageComponent,
     ModalComponent,
     InputFormComponent,
-    TruncarPipe
+    TruncarPipe,
+    HeaederElementoComponent,
+    VentasPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ import { ProductoService } from '../../../../Services/Producto/Producto.service'
 export class ItemComponent implements OnInit {
   @Input() Producto!: ProductoDto;
   @Input() FirstFoto: string = "https://via.placeholder.com/200x200";
-  Moneda : string = Enviroment.PAGE_MONEDA;
+  Moneda : string = Enviroment.Moneda;
 
 
 

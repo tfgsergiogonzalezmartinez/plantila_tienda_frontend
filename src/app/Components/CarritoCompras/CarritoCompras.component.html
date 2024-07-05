@@ -9,7 +9,7 @@
         <div class="flex flex-row w-full justify-between">
           <div class="flex flex-col gap-1 justify-start items-start">
             <div class="flex justify-center items-center">
-              <span class="font-bold">{{producto.Nombre | truncar}}</span>
+              <span class="font-bold">{{producto.Producto | truncar}}</span>
             </div>
             <div class="flex justify-center items-center">
               <span class="text-sm">{{producto.Precio}} {{Moneda}}</span>
@@ -31,7 +31,7 @@
         <span class="font-semibold text-lg">{{getProductosService().getTotal().toFixed(2)}}</span>
     </div>
     <div class="flex w-full">
-      <button class="w-full">Pagar</button>
+      <button class="w-full" (click)="pagar()">Pagar</button>
 
     </div>
   </div>

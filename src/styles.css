@@ -12,6 +12,9 @@
     --secondary: #fcb42f;
     --accent: #2802ff;
     --card: #3446cc8a;
+    --item: #ffffff;
+    --header: #2b4eee;
+    --subheader: #ffffff;
 
     /* Tonalidades suaves */
     --text-light: #111942;
@@ -20,6 +23,9 @@
     --secondary-light: rgb(247, 200, 114);
     --accent-light: #4727fa;
     --card-light: #707ac9c0;
+    --item-light: #FFFFFF;
+    --header-light: #FFFFFF;
+    --subheader-light: #FFFFFF;
 
     /* Tonalidades fuertes */
     --text-dark: #090d22;
@@ -28,10 +34,12 @@
     --secondary-dark: rgb(211, 139, 4);
     --accent-dark: #1f01ca;
     --card-dark: #1727a18a;
+    --item-dark: #E1E1E1;
+    --header-dark: #E1E1E1;
+    --subheader-dark: #FFFFFF;
 
 
     --text-button: #ffffff;
-    --header: #2b4eee;
     --border: #bfbfc2e3;
     --enlaces-hover: #2b4feea8;
 

@@ -1,7 +1,7 @@
 <div class="bg-background flex flex-col rounded shadow-md p-3 hover:scale-105 transition-transform cursor-pointer" (click)="seleccionarProducto()">
   <div class="flex w-full h-full">
     <img class="object-cover rounded w-[200px] min-w-[200px] max-w-[200px] h-[200px] min-h-[200px] max-h-[200px]"
-      src="https://via.placeholder.com/200x200" alt="">
+      [src]="Producto.FotoPrincipal" alt="">
   </div>
   <div class="flex flex-row justify-between mt-2">
     <div class="flex flex-row w-full justify-start items-start">

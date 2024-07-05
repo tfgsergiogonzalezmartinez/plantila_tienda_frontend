@@ -2,10 +2,11 @@
   <div class="flex flex-row justify-between items-center">
     <div class="flex flex-row items-center justify-start gap-5">
       <div class="flex flex-row justify-start items-center cursor-pointer px-3" (click)="goTo('/main')">
-        <img src="assets/icon/appIcon.png" class="w-12 h-12" alt="">
-        <p class="text-xl text-text font-bold text-nowrap">Page Name</p>
+        <img [src]="'assets/logos/logo.'+extension" class="w-12 h-12 rounded" alt="">
+        <p class="text-xl text-text font-bold text-nowrap">{{titulo}}</p>
       </div>
       <app-SubHeader></app-SubHeader>
+      <app-HeaederElemento [Rol]="'user'" [Ruta]="'Pedidos'" ></app-HeaederElemento>
     </div>
     <div class="flex justify-center items-center flex-row gap-3">
       <app-UserProfileDropdown></app-UserProfileDropdown>

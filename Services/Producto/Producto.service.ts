@@ -2,6 +2,9 @@ import { ElementRef, Injectable } from '@angular/core';
 import { BaseService } from '../Base.service';
 import { HttpClient } from '@angular/common/http';
 import { ProductoDto } from '../../dto/Producto/ProductoDto';
+import { VentaDto } from '../../dto/VentaDto/VentaDto';
+import { ProductoCesta } from '../../Interfaces/Venta/ProductoCesta';
+import { CrearProductoDto } from '../../dto/Producto/CrearProductoDto';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +12,17 @@ import { ProductoDto } from '../../dto/Producto/ProductoDto';
 export class ProductoService extends BaseService {
   private CategoriaActiva! : string;
   private listaProductos : ProductoDto[] = [];
-  private listaProductosCesta : ProductoDto[] = [];
+  private listaProductosCesta : ProductoCesta[] = [];
   private productoSeleccionado! : ProductoDto | null;
 
   private tallaSeleccionada! : string;
   private colorSeleccionado! : string;
 
   private CestaRef! : ElementRef;
+
+  private isNuevoProducto : boolean = false;
+
+  private fotoPrincipal : string = "https://via.placeholder.com/200x200";
 
   constructor(httpClient : HttpClient) {
     super(httpClient);
@@ -39,6 +46,10 @@ export class ProductoService extends BaseService {
   }
   GetProductosFilterPrecioDesc(){
     return this.httpClient.get<ProductoDto[]>(this.apiIp + this.controller + '/precio/desc' , {headers: this.getHeaders()});
+  }
+
+  CrearProducto(producto : CrearProductoDto){
+    return this.httpClient.post<any>(this.apiIp + this.controller + "/CrearProducto", producto , {headers: this.getHeaders()});
   }
 
   getCatergoriaActiva(){
@@ -80,10 +91,10 @@ export class ProductoService extends BaseService {
   getListaProductosCesta(){
     return this.listaProductosCesta;
   }
-  setListaProductosCesta(lista : ProductoDto[]){
+  setListaProductosCesta(lista : ProductoCesta[]){
     this.listaProductosCesta = lista;
   }
-  addProductoCesta(producto : ProductoDto){
+  addProductoCesta(producto : ProductoCesta){
     this.listaProductosCesta.push(producto);
     this.CestaRef.nativeElement.scrollIntoView({behavior: "smooth"});
     this.CestaRef.nativeElement.scrollTop = this.CestaRef.nativeElement.scrollHeight;
@@ -106,7 +117,27 @@ export class ProductoService extends BaseService {
 
   setProductoSeleccionado(producto : ProductoDto | null){
     this.productoSeleccionado = producto;
+    this.fotoPrincipal = producto!.FotoPrincipal;
   }
+
+  setFotoPrincipalProducto(foto: string) {
+    if (this.fotoPrincipal) {
+      // Añadir la foto principal actual a la lista de fotos
+      this.productoSeleccionado!.Fotos.push(this.fotoPrincipal);
+
+      // Eliminar la nueva foto de la lista de fotos si existe
+      const index = this.productoSeleccionado!.Fotos.indexOf(foto);
+      if (index !== -1) {
+        this.productoSeleccionado!.Fotos.splice(index, 1);
+      }
+    }
+
+    // Establecer la nueva foto principal
+    this.fotoPrincipal = foto;
+    this.productoSeleccionado!.FotoPrincipal = foto;
+  }
+
+
 
   filtrarPrecioAsc(){
     this.GetProductosFilterPrecioAsc().subscribe({
@@ -192,6 +223,18 @@ export class ProductoService extends BaseService {
   setTallaSeleccionada(talla : string){
     this.tallaSeleccionada = talla;
   }
+
+  getIsNuevoProducto(){
+    return this.isNuevoProducto;
+  }
+  setIsNuevoProducto(isNuevo : boolean){
+    this.isNuevoProducto = isNuevo;
+  }
+
+  getFotoPrincipal(){
+    return this.fotoPrincipal;
+  }
+
 
 
 
