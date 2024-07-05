@@ -5,6 +5,7 @@ import { ProductoDto } from '../../dto/Producto/ProductoDto';
 import { VentaDto } from '../../dto/VentaDto/VentaDto';
 import { ProductoCesta } from '../../Interfaces/Venta/ProductoCesta';
 import { CrearProductoDto } from '../../dto/Producto/CrearProductoDto';
+import { SubirImagenesProductoDto } from '../../dto/Producto/SubirImagenesProductoDto';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,10 @@ export class ProductoService extends BaseService {
     return this.httpClient.post<any>(this.apiIp + this.controller + "/CrearProducto", producto , {headers: this.getHeaders()});
   }
 
+  SubirImagenesProducto(subirImagenesProductoDto : SubirImagenesProductoDto){
+    return this.httpClient.post<any>(this.apiIp + this.controller + "/subirImagenes", subirImagenesProductoDto , {headers: this.getHeaders()});
+  }
+
   getCatergoriaActiva(){
     return this.CategoriaActiva;
   }
@@ -76,11 +81,11 @@ export class ProductoService extends BaseService {
     this.listaProductos = lista;
   }
 
-
   getTodosProductos(){
+    this.listaProductos = [];
     this.GetAll().subscribe({
       next: (data) => {
-        this.setListaProductos(data);
+        this.listaProductos = data;
       },
       error: (error) => {
         console.log(error);

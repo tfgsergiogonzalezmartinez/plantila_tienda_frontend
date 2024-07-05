@@ -1,8 +1,8 @@
 <div class="fixed z-50 flex flex-col w-full bg-background ">
   <div class="flex flex-row justify-between items-center">
     <div class="flex flex-row items-center justify-start gap-5">
-      <div class="flex flex-row justify-start items-center cursor-pointer px-3" (click)="goTo('/main')">
-        <img [src]="'assets/logos/logo.'+extension" class="w-12 h-12 rounded" alt="">
+      <div class="flex flex-row justify-start items-center cursor-pointer px-3 gap-2" (click)="goTo('/main')">
+        <img [src]="'assets/logos/logo.'+extension" class="w-10 h-10 rounded" alt="">
         <p class="text-xl text-text font-bold text-nowrap">{{titulo}}</p>
       </div>
       <app-SubHeader></app-SubHeader>
@@ -12,5 +12,4 @@
       <app-UserProfileDropdown></app-UserProfileDropdown>
     </div>
   </div>
-
 </div>

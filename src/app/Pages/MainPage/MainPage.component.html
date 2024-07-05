@@ -67,6 +67,25 @@
           }
         </div>
         <div class="flex flex-col">
+          @if (getUserService().isAdmin()) {
+            <button (click)="clickInputImagenes()">Agregar Imagenes</button>
+            <input #inputImagenes class="hidden" type="file" (change)="seleccionarImagenes($event)" multiple accept="image/*">
+            @if (base64Imagenes.length>0) {
+              <div class="flex flex-col mt-2 flex-wrap gap-2">
+                <h4 class="py-2 font-semibold">Selecciona la imagen principal del producto</h4>
+                <div class="flex flex-row mt-2 flex-wrap gap-2">
+                  @for (item of base64Imagenes; track $index) {
+                    @if (item == imagenPrincipal) {
+                      <img (click)="imagenPrincipal=''" class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded scale-105 transition-all cursor-pointer border-2 border-primary" [src]="item" alt="">
+                    }@else {
+                      <img (click)="imagenPrincipal=item" class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded hover:scale-105 transition-all cursor-pointer" [src]="item" alt="">
+                    }
+                  }
+                  <button class="h-10" (click)="subirImagenes()">Guardar</button>
+                </div>
+              </div>
+            }
+          }
             <h4 class="py-2 font-semibold">Tallas</h4>
             <div class="flex flex-row flex-wrap gap-2">
               @for (talla of getProductosService().getProductoSeleccionado()?.Tallas; track $index) {
@@ -107,7 +126,7 @@
       <div class="flex flex-col p-4 gap-3 overflow-y-auto">
         <div class="flex flex-row gap-5">
           <div class="flex flex-col  gap-1 h-[400px] h-min-[400px] h-max-[400px] overflow-y-auto">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" [src]="getProductosService().getProductoSeleccionado()?.FotoPrincipal" alt="">
+            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
             <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
             <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
             <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">

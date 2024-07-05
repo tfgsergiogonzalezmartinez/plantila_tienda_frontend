@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { MainService } from '../../../../Services/Main/Main.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../../../Services/User/User.service';
@@ -8,6 +8,7 @@ import { ProductoCesta } from '../../../../Interfaces/Venta/ProductoCesta';
 import { CategoriaService } from '../../../../Services/Categoria/Categoria.service';
 import { CategoriaDto } from '../../../../dto/Categoria/CategoriaDto';
 import { CrearProductoDto } from '../../../../dto/Producto/CrearProductoDto';
+import { SubirImagenesProductoDto } from '../../../../dto/Producto/SubirImagenesProductoDto';
 
 @Component({
   selector: 'app-MainPage',
@@ -15,6 +16,7 @@ import { CrearProductoDto } from '../../../../dto/Producto/CrearProductoDto';
   styleUrls: ['./MainPage.component.css']
 })
 export class MainPageComponent implements OnInit {
+  @ViewChild('inputImagenes') inputImagenes! : ElementRef
   mostrarFiltros: boolean = false;
   nuevaTalla : string = "";
   nuevoColor : string = "";
@@ -25,6 +27,9 @@ export class MainPageComponent implements OnInit {
   nuevoCategoria : string = "";
   nuevoDescripcion : string = "";
   listaCategorias : CategoriaDto[] = [];
+  private imagenesSeleccionadas : File[] = [];
+  base64Imagenes : string[] = [];
+  imagenPrincipal : string = "";
 
   constructor(private mainService : MainService,private cdr : ChangeDetectorRef, private userService : UserService,private productosService : ProductoService, private categoriaService: CategoriaService, private router : Router ) { }
 
@@ -76,6 +81,56 @@ export class MainPageComponent implements OnInit {
       error: (error) => {
         console.log(error);
       }
+    });
+  }
+
+  clickInputImagenes(){
+    this.inputImagenes.nativeElement.click();
+  }
+
+  async seleccionarImagenes(event: any){
+    event.stopPropagation();
+    this.imagenesSeleccionadas = Array.from(event.target.files);
+    this.base64Imagenes = [];
+    for (const file of this.imagenesSeleccionadas) {
+      const base64 = await this.convertToBase64(file);
+      this.base64Imagenes.push(base64);
+    }
+    console.log(this.base64Imagenes);
+  }
+
+  subirImagenes(){
+    const subirImagenesProductoDto : SubirImagenesProductoDto = new SubirImagenesProductoDto();
+    subirImagenesProductoDto.IdProducto = this.productosService.getProductoSeleccionado()!.Id;
+    this.base64Imagenes.splice(this.base64Imagenes.indexOf(this.imagenPrincipal),1);
+    subirImagenesProductoDto.Fotos = this.base64Imagenes;
+    subirImagenesProductoDto.FotoPrincipal = this.imagenPrincipal;
+    this.productosService.SubirImagenesProducto(subirImagenesProductoDto).subscribe({
+      next: (data) => {
+        this,this.productosService.setProductoSeleccionado(data);
+        console.log(data);
+        this.productosService.getTodosProductos();
+        this.imagenesSeleccionadas= [];
+        this.base64Imagenes = [];
+        this.imagenPrincipal = "";
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
+
+
+  }
+
+
+
+  private convertToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
     });
   }
 
