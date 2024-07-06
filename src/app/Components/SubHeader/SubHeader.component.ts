@@ -56,6 +56,7 @@ export class SubHeaderComponent implements OnInit {
   seleccionarCategoria(categoria: CategoriaDto | null = null){
     if (!categoria){
       this.productosService.getTodosProductos();
+      this.productosService.setCategoriaActiva("");
       this.showCategorias = false;
       return;
     }

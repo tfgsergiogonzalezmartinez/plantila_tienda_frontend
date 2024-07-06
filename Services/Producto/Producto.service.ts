@@ -127,17 +127,14 @@ export class ProductoService extends BaseService {
 
   setFotoPrincipalProducto(foto: string) {
     if (this.fotoPrincipal) {
-      // Añadir la foto principal actual a la lista de fotos
       this.productoSeleccionado!.Fotos.push(this.fotoPrincipal);
 
-      // Eliminar la nueva foto de la lista de fotos si existe
       const index = this.productoSeleccionado!.Fotos.indexOf(foto);
       if (index !== -1) {
         this.productoSeleccionado!.Fotos.splice(index, 1);
       }
     }
 
-    // Establecer la nueva foto principal
     this.fotoPrincipal = foto;
     this.productoSeleccionado!.FotoPrincipal = foto;
   }
@@ -192,7 +189,7 @@ export class ProductoService extends BaseService {
   }
 
   activarFiltrarAsc(){
-    if (!this.getCatergoriaActiva()){
+    if (this.getCatergoriaActiva() == ""){
       this.filtrarPrecioAsc();
     }else{
       this.filtrarPrecioAscCategoria(this.getCatergoriaActiva());
@@ -200,7 +197,7 @@ export class ProductoService extends BaseService {
   }
 
   activarFiltrarDesc(){
-    if (!this.getCatergoriaActiva()){
+    if (this.getCatergoriaActiva() == ""){
       this.filtrarPrecioDesc();
     }else{
       this.filtrarPrecioDescCategoria(this.getCatergoriaActiva());
