@@ -6,6 +6,7 @@ ARG API_PORT
 
 ARG Moneda
 ARG Titulo
+ARG Logo_Extension
 ARG Color_background
 ARG Color_background_light
 ARG Color_background_dark
@@ -28,6 +29,7 @@ ARG Color_texto_botones
 
 ENV ENV_Moneda=${Moneda}
 ENV ENV_Titulo=${Titulo}
+ENV ENV_Logo_Extension=${Logo_Extension}
 ENV ENV_Color_background=${Color_background}
 ENV ENV_Color_background_light=${Color_background_light}
 ENV ENV_Color_background_dark=${Color_background_dark}
@@ -67,10 +69,10 @@ RUN echo "Archivo Environment.ts eliminado (si existía)"
 RUN echo "export const Enviroment = { \
   BACKEND_URL : 'http://${ENV_IP_API}:${ENV_API_PORT}}/', \
   BACKEND_API_URL : 'http://${ENV_IP_API}:${ENV_API_PORT}/api/', \
-  PAGE_ICON : '${ENV_PAGE_ICON}', \
-  PAGE_TITULO : '${ENV_PAGE_TITULO}', \
-  PAGE_BACKGROUND_COLOR : '${ENV_PAGE_BACKGROUND_COLOR}', \
-  PAGE_MONEDA : '${ENV_PAGE_MONEDA}', \
+  PAGE_ICON : 'assets/img/Logo.png', \
+  Titulo : '${ENV_Titulo}', \
+  Moneda : '${ENV_Moneda}}', \
+  Logo_Extension : '${ENV_Logo_Extension}', \
 };" > Enviroment.ts
 RUN echo "Archivo environment.ts creado con variables de entorno"
 RUN chmod 777 Enviroment.ts
