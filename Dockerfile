@@ -6,7 +6,6 @@ ARG API_PORT
 
 ARG Moneda
 ARG Titulo
-ARG Logo_Extension
 ARG Color_background
 ARG Color_background_light
 ARG Color_background_dark
@@ -29,7 +28,6 @@ ARG Color_texto_botones
 
 ENV ENV_Moneda=${Moneda}
 ENV ENV_Titulo=${Titulo}
-ENV ENV_Logo_Extension=${Logo_Extension}
 ENV ENV_Color_background=${Color_background}
 ENV ENV_Color_background_light=${Color_background_light}
 ENV ENV_Color_background_dark=${Color_background_dark}
@@ -69,10 +67,10 @@ RUN echo "Archivo Environment.ts eliminado (si existía)"
 RUN echo "export const Enviroment = { \
   BACKEND_URL : 'http://${ENV_IP_API}:${ENV_API_PORT}}/', \
   BACKEND_API_URL : 'http://${ENV_IP_API}:${ENV_API_PORT}/api/', \
-  PAGE_ICON : 'assets/img/Logo.png', \
-  Titulo : '${ENV_Titulo}', \
-  Moneda : '${ENV_Moneda}}', \
-  Logo_Extension : '${ENV_Logo_Extension}', \
+  PAGE_ICON : '${ENV_PAGE_ICON}', \
+  PAGE_TITULO : '${ENV_PAGE_TITULO}', \
+  PAGE_BACKGROUND_COLOR : '${ENV_PAGE_BACKGROUND_COLOR}', \
+  PAGE_MONEDA : '${ENV_PAGE_MONEDA}', \
 };" > Enviroment.ts
 RUN echo "Archivo environment.ts creado con variables de entorno"
 RUN chmod 777 Enviroment.ts
@@ -94,14 +92,14 @@ RUN echo "/* You can add global styles to this file, and also import other style
       --header: ${ENV_Color_header}; \
       --subheader: ${ENV_Color_subHeader}; \
       /* Tonalidades suaves */ \
-      --text-light: ${ENV__Color_texto_light}; \
-      --background-light: ${ENV__Color_background_light}; \
-      --primary-light: ${ENV__Color_boton_light}; \
+      --text-light: ${ENV_Color_texto_light}; \
+      --background-light: ${ENV_Color_background_light}; \
+      --primary-light: ${ENV_Color_boton_light}; \
       --secondary-light: rgb(247, 200, 114); \
       --accent-light: #4727fa; \
       --card-light: #707ac9c0; \
       --item-light: ${ENV_Color_items_light}; \
-      --header-light: ${ENV__Color_header_light}; \
+      --header-light: ${ENV_Color_header_light}; \
       --subheader-light: ${ENV_Color_subHeader_light}; \
       /* Tonalidades fuertes */ \
       --text-dark: ${ENV_Color_texto_dark}; \

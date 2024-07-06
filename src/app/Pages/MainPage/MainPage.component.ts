@@ -169,6 +169,22 @@ export class MainPageComponent implements OnInit {
     return this.userService;
   }
 
+  salirProductorSeleccionado(){
+    this.clearImagenes();
+    this.productosService.setProductoSeleccionado(null);
+  }
+
+  salirNuevoProducto(){
+    this.clearImagenes();
+    this.productosService.setIsNuevoProducto(false);
+  }
+
+  clearImagenes(){
+    this.imagenesSeleccionadas = [];
+    this.base64Imagenes = [];
+    this.imagenPrincipal = "";
+  }
+
 
 
 }
