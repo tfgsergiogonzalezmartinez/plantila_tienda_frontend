@@ -7,7 +7,7 @@
       </span>
     </div>
     <div class="flex flex-row justify-center items-center w-full text-text">
-      <h5>Categorias</h5>
+      <h5 class="text-text">Categorias</h5>
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
         <div class="flex justify-center items-center">
           @if (categoriaSeleccionada) {
             @for (subCategoria of categoriaSeleccionada.SubCategorias; track $index) {
-              <span (click)="seleccionarCategoria(subCategoria)" class="text-text italic font-semibold p-1 text-sm cursor-pointer hover:bg-background-dark rounded transition-colors">
+              <span (click)="seleccionarCategoria(subCategoria)" class="text-text italic font-semibold p-1 text-sm cursor-pointer hover:bg-subheader-dark rounded transition-colors">
                 {{subCategoria.Nombre}}
               </span>
             }
