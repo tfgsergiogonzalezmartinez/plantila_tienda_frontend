@@ -4,6 +4,7 @@ import { UserLoginDto } from '../../../../dto/UserDto/UserLoginDto';
 import { UserLoginGetDto } from '../../../../dto/UserDto/UserLoginGetDto';
 import { Router } from '@angular/router';
 import { UserCreateDto } from '../../../../dto/UserDto/UserCreateDto';
+import { Enviroment } from '../../../../Enviroment';
 
 @Component({
   selector: 'app-LoginPage',
@@ -27,6 +28,8 @@ export class LoginPageComponent implements OnInit {
   public Apellido1!: string;
   public Apellido2!: string;
   public FechaNacimiento!: Date;
+
+  extension = Enviroment.Logo_Extension;
 
   constructor(private userService : UserService, private router: Router) {
     if (userService.getIsRegisterFromMain()){

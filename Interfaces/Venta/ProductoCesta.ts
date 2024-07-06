@@ -3,4 +3,5 @@ export class ProductoCesta {
     public Talla!: string;
     public Color!: string;
     public Precio!: number;
+    public FotoPrincipal!: string;
 }

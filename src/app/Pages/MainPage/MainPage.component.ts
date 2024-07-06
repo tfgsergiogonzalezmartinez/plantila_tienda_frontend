@@ -76,6 +76,7 @@ export class MainPageComponent implements OnInit {
     this.productosService.CrearProducto(producto).subscribe({
       next: (data) => {
         console.log(data);
+        this.subirImagenes(data.Id);
         this.productosService.getTodosProductos();
       },
       error: (error) => {
@@ -99,15 +100,17 @@ export class MainPageComponent implements OnInit {
     console.log(this.base64Imagenes);
   }
 
-  subirImagenes(){
+  subirImagenes(id : string =""){
     const subirImagenesProductoDto : SubirImagenesProductoDto = new SubirImagenesProductoDto();
-    subirImagenesProductoDto.IdProducto = this.productosService.getProductoSeleccionado()!.Id;
+    if ( id == "") subirImagenesProductoDto.IdProducto = this.productosService.getProductoSeleccionado()!.Id;
+    if ( id != "") subirImagenesProductoDto.IdProducto = id;
     this.base64Imagenes.splice(this.base64Imagenes.indexOf(this.imagenPrincipal),1);
     subirImagenesProductoDto.Fotos = this.base64Imagenes;
     subirImagenesProductoDto.FotoPrincipal = this.imagenPrincipal;
     this.productosService.SubirImagenesProducto(subirImagenesProductoDto).subscribe({
       next: (data) => {
-        this,this.productosService.setProductoSeleccionado(data);
+        this.productosService.setIsNuevoProducto(false);
+        this.productosService.setProductoSeleccionado(data);
         console.log(data);
         this.productosService.getTodosProductos();
         this.imagenesSeleccionadas= [];
@@ -141,6 +144,7 @@ export class MainPageComponent implements OnInit {
       Talla : this.getProductosService().getTallaSeleccionada(),
       Color : this.getProductosService().getColorSeleccionado(),
       Precio : this.getProductosService().getProductoSeleccionado()!.Precio,
+      FotoPrincipal : this.getProductosService().getProductoSeleccionado()!.FotoPrincipal
     }
 
     this.productosService.addProductoCesta(ProductoCesta);

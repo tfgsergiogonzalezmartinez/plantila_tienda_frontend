@@ -10,27 +10,34 @@ module.exports = {
       'primary': 'var(--primary)',
       'secondary': 'var(--secondary)',
       'accent': 'var(--accent)',
+      'item' : 'var(--item)',
+      'header' : 'var(--header)',
+      'subheader' : 'var(--subheader)',
+      'card': 'var(--card)',
+      'card-light': 'var(--card-light)',
+      'card-dark': 'var(--card-dark)',
 
       'text-light': 'var(--text-light)',
       'background-light': 'var(--background-light)',
       'primary-light': 'var(--primary-light)',
       'secondary-light': 'var(--secondary-light)',
       'accent-light': 'var(--accent-light)',
+      'item' : 'var(--item-light)',
+      'header-light' : 'var(--header-light)',
+      'subheader-light' : 'var(--subheader-light)',
 
       'text-dark': 'var(--text-dark)',
       'background-dark': 'var(--background-dark)',
       'primary-dark': 'var(--primary-dark)',
       'secondary-dark': 'var(--secondary-dark)',
       'accent-dark': 'var(--accent-dark)',
+      'item' : 'var(--item-dark)',
+      'header-dark' : 'var(--header-dark)',
+      'subheader-dark' : 'var(--subheader-dark)',
 
-      'card': 'var(--card)',
-      'card-light': 'var(--card-light)',
-      'card-dark': 'var(--card-dark)',
       'text-button': 'var(--text-button)',
       'border' : 'var(--border)',
       'enlaces-hover' : 'var(--enlaces-hover)',
-
-
 
       'red': {
         100: '#fee2e2',

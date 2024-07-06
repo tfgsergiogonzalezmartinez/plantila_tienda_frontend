@@ -98,6 +98,10 @@
                 <span (click)="getProductosService().setColorSeleccionado(color)" [ngClass]="{'seleccionada' : color == getProductosService().getColorSeleccionado()}" class="px-3 py-1 rounded border-2 hover:bg-background-dark cursor-pointer">{{color}}</span>
               }
             </div>
+            <h4 class="py-2 font-semibold">Precio</h4>
+            <div class="flex flex-row flex-wrap gap-2">
+                <span class="font-semibold">{{getProductosService().getProductoSeleccionado()?.Precio}}</span>
+            </div>
             <div class="flex flex-row py-6">
               <button (click)="addProducto()" class="w-full h-10 bg-primary hover:bg-primary-dark transition-colors">Añadir al carrito</button>
             </div>
@@ -126,19 +130,47 @@
       <div class="flex flex-col p-4 gap-3 overflow-y-auto">
         <div class="flex flex-row gap-5">
           <div class="flex flex-col  gap-1 h-[400px] h-min-[400px] h-max-[400px] overflow-y-auto">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-            <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
-          </div>
-          <div class="flex w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px]">
-            <img class="w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px] rounded" src="https://via.placeholder.com/500x500" alt="">
+            @if (base64Imagenes.length > 0) {
+              @for (item of base64Imagenes; track $index) {
+                <img (click)="getProductosService().setFotoPrincipalProducto(item)" class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" [src]="item" alt="">
+              }
+            }@else {
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+              <img class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded" src="https://via.placeholder.com/100x100" alt="">
+            }
+            </div>
+            <div class="flex w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px]">
+            @if (imagenPrincipal != "") {
+              <img class="w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px] rounded" [src]="imagenPrincipal" alt="">
+            }@else {
+              <img class="w-[400px] min-w-[400px] max-w-[400px] h-[400px] min-h-[400px] max-h-[400px] rounded" src="https://via.placeholder.com/500x500" alt="">
+            }
           </div>
           <div class="flex flex-col gap-2">
+            @if (getUserService().isAdmin()) {
+              <button (click)="clickInputImagenes()">Agregar Imagenes</button>
+              <input #inputImagenes class="hidden" type="file" (change)="seleccionarImagenes($event)" multiple accept="image/*">
+              @if (base64Imagenes.length>0) {
+                <div class="flex flex-col mt-2 flex-wrap gap-2">
+                  <h4 class="py-2 font-semibold">Selecciona la imagen principal del producto</h4>
+                  <div class="flex flex-row mt-2 flex-wrap gap-2">
+                    @for (item of base64Imagenes; track $index) {
+                      @if (item == imagenPrincipal) {
+                        <img (click)="imagenPrincipal=''" class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded scale-105 transition-all cursor-pointer border-2 border-primary" [src]="item" alt="">
+                      }@else {
+                        <img (click)="imagenPrincipal=item" class="w-[50px] w-min-[50px] w-max-[50px] h-[50px] h-min-[50px] h-max-[50px] rounded hover:scale-105 transition-all cursor-pointer" [src]="item" alt="">
+                      }
+                    }
+                  </div>
+                </div>
+              }
+            }
               <div class="grid grid-cols-2 gap-2 justify-center items-center">
                 <h4 class="py-2 font-semibold">Nombre</h4>
                 <input [(ngModel)]="nuevoNombre" type="text" placeholder="Nombre" class="w-full h-10 rounded border-2 border-background-dark px-2">
@@ -191,10 +223,10 @@
               </div>
               <div class="grid grid-cols-2 justify-center items-center">
                 <h4 class="py-2 font-semibold">Precio</h4>
-                <input [(ngModel)]="nuevoPrecio" type="text" placeholder="Inserte precio" class="w-full h-10 rounded border-2 border-background-dark px-2">
+                <input [(ngModel)]="nuevoPrecio" type="number" placeholder="Inserte precio" class="w-full h-10 rounded border-2 border-background-dark px-2">
               </div>
               <div class="flex flex-row py-6">
-                <button (click)="crearProducto()" class="w-full h-10 bg-primary hover:bg-primary-dark transition-colors">Añadir al carrito</button>
+                <button (click)="crearProducto()" class="w-full h-10 bg-primary hover:bg-primary-dark transition-colors">Crear producto</button>
               </div>
           </div>
 
