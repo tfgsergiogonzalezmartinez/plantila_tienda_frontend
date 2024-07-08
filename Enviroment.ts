@@ -4,6 +4,6 @@ export const Enviroment = {
 
   PAGE_ICON : 'assets/img/Logo.png',
   Titulo : 'Tienda',
-  Moneda : '$',
-  Logo_Extension : 'webp',
+  Moneda : '€',
+  Logo_Extension : 'png',
 }
